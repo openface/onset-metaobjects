@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <script>
+        if (typeof ue === 'undefined') {
+            // for browser testing outside of game
+            ue = { game: { callevent: console.log } };
+            indev = true
+        }
+        (function (obj) {
+            ue.game = {};
+            ue.game.callevent = function (name, ...args) {
+                if (typeof name != "string") {
+                    return;
+                }
+                if (args.length == 0) {
+                    obj.callevent(name, "")
+                } else {
+                    let params = []
+                    for (let i = 0; i < args.length; i++) {
+                        params[i] = args[i];
+                    }
+                    obj.callevent(name, JSON.stringify(params));
+                }
+            };
+        })(ue.game);
+        CallEvent = ue.game.callevent;
+    </script>
+
+	<link href="./style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <div class="slot" id="slot-1"></div>
+        <div class="slot" id="slot-2"></div>
+        <div class="slot" id="slot-3"></div>
+        <div class="slot" id="slot-4"></div>
+        <div class="slot" id="slot-5"></div>
+        <div class="slot" id="slot-6"></div>
+    </div>
+</body>
+
+<script src="./jquery.js"></script>
+<script src="./active_objects.js"></script>
+</html>

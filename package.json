@@ -1,0 +1,21 @@
+{
+    "author": "openface",
+    "version": "1.0",
+    "client_scripts": [
+        "client.lua"
+    ],
+    "server_scripts": [
+        "json.lua",
+        "server.lua",
+        "inventory.lua",
+        "items.lua",
+        "item.lua",
+        "util.lua"
+    ],
+    "files": [
+        "ui/index.html",
+        "ui/itemize.js",
+        "ui/jquery.js",
+        "ui/style.css"
+    ]
+}
