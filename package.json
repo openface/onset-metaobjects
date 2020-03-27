@@ -14,7 +14,7 @@
     ],
     "files": [
         "ui/index.html",
-        "ui/itemize.js",
+        "ui/active_objects.js",
         "ui/jquery.js",
         "ui/style.css"
     ]
