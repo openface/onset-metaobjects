@@ -31,12 +31,24 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)
     Delay(1000, function()
         -- remove pickup
         if GetPickupPropertyValue(pickup, '_claimedby') == player then
+            PlaySound(player, "pickup.wav")
+
             AddItemToInventory(player, name)
             DestroyText3D(GetPickupPropertyValue(pickup, '_text'))
             DestroyPickup(pickup)
         end
     end)
 end)
+
+function PlaySound(player, sound)
+    local x,y,z = GetPlayerLocation(player)
+    for k,ply in pairs(GetAllPlayers()) do
+        local _x,_y,_z = GetPlayerLocation(ply)
+        if GetDistance3D(x, y, z, _x, _y, _z) <= 1000 then
+            CallRemoteEvent(ply, "PlayItemUseSound", sound, x, y, z)
+        end
+    end
+end
 
 -- spawn item by player
 AddCommand("createitem", function(player, name)

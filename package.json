@@ -16,6 +16,8 @@
         "ui/index.html",
         "ui/active_objects.js",
         "ui/jquery.js",
-        "ui/style.css"
+        "ui/style.css",
+        "sounds/pickup.wav",
+        "sounds/drink.wav"
     ]
 }

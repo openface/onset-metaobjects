@@ -42,6 +42,10 @@ AddEvent("OnKeyRelease", function(key)
 	end
 end)
 
+AddRemoteEvent("PlayItemUseSound", function(sound, x, y, z)
+    SetSoundVolume(CreateSound3D("sounds/"..sound, x, y, z, 1000), 1.0)
+end)
+
 AddRemoteEvent("SetInventory", function(data)
 	ExecuteWebJS(ItemizeUI, "SyncInventory('".. data .."')")
 end)

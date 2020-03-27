@@ -3,6 +3,8 @@ function UseItem(player, name)
     EquipItem(player, name)
     SetPlayerAnimation(player, "DRINKING")
 
+    PlaySound(player, "drink.wav")
+    
     Delay(10000, function()
         UnequipItem(player, name)
     end)
