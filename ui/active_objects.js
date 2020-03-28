@@ -5,47 +5,47 @@ $(document).ready(function() {
     }
 });
 
-function UseItem(name) {
-    CallEvent('UseItem', name);
+function UseObject(name) {
+    CallEvent('UseObject', name);
 }
 
-function EquipItem(name) {
-    CallEvent('EquipItem', name);
+function EquipObject(name) {
+    CallEvent('EquipObject', name);
 }
 
-function UnequipItem(name) {
-    CallEvent('UnequipItem', name)
+function UnequipObject(name) {
+    CallEvent('UnequipObject', name)
 }
 
-function DropItem(name) {
-    CallEvent('DropItem', name);
+function DropObject(name) {
+    CallEvent('DropObject', name);
 }
 
 function SyncInventory(data) {
     console.log(data);
-    items = JSON.parse(data);
+    objects = JSON.parse(data);
 
     // clear inventory slots
     $('.slot').empty();
 
     // populate slot contents
-    $.each(items, function (i, item) {
+    $.each(objects, function (i, object) {
         i = i + 1;
-        let html = `<img src="http://game/objects/${item['modelid']}"></img>`;
-        if (item['quantity'] > 1) {
-            html += `<span class="quantity">${item['quantity']}</span>`;
+        let html = `<img src="http://game/objects/${object['modelid']}"></img>`;
+        if (object['quantity'] > 1) {
+            html += `<span class="quantity">${object['quantity']}</span>`;
         }
         html += `<div class="options">`;
-        if (item['usable']) {
-            html += `<a onClick="UseItem('${item['name']}')" href="#">Use</a>`;
+        if (object['usable']) {
+            html += `<a onClick="UseObject('${object['name']}')" href="#">Use</a>`;
         }
-        if (item['equipable']) {
-            html += `<a onClick="EquipItem('${item['name']}')" href="#">Equip</a>`;
+        if (object['equipable'] && !object['isequipped']) {
+            html += `<a onClick="EquipObject('${object['name']}')" href="#">Equip</a>`;
         }
-        if (item['isequipped']) {
-            html += `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
+        if (object['isequipped']) {
+            html += `<a onClick="UnequipObject('${object['name']}')" href="#">Unequip</a>`;
         }
-        html += `<a onClick="DropItem('${item['name']}')" href="#">Drop</a></div>`;
+        html += `<a onClick="DropObject('${object['name']}')" href="#">Drop</a></div>`;
         $('#slot-'+i).html(html);
     });
 }

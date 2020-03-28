@@ -26,12 +26,12 @@ function cleanup(player)
     SetPlayerPropertyValue(player, "_equipped", {})
 end
 
--- add item to inventory (ignores max limit)
-function AddItemToInventory(player, name)
+-- add object to inventory (ignores max limit)
+function AddObjectToInventory(player, name)
     _inventory = GetPlayerPropertyValue(player, "_inventory")
 
     if GetInventoryCount(player, name) > 0 then
-        -- update existing item quantity
+        -- update existing object quantity
         for k,v in pairs(_inventory) do
             if v['name'] == name then
                 _inventory[k]['quantity'] = v['quantity'] + 1
@@ -40,8 +40,8 @@ function AddItemToInventory(player, name)
             end
         end
     else
-        local item = GetItem(name)
-        -- add new item
+        local object = GetObject(name)
+        -- add new object
         table.insert(_inventory, {
             name = name,
             quantity = 1,
@@ -52,9 +52,9 @@ function AddItemToInventory(player, name)
 
     print(GetPlayerName(player).." PlayerInventory: "..dump(_inventory))
 end
-AddFunctionExport("AddItemToInventory", AddItemToInventory)
+AddFunctionExport("AddObjectToInventory", AddObjectToInventory)
 
--- get carry count for given item
+-- get carry count for given object
 function GetInventoryCount(player, name)
     local _inventory = GetPlayerPropertyValue(player, "_inventory")
     for k,v in pairs(_inventory) do
@@ -65,25 +65,25 @@ function GetInventoryCount(player, name)
     return 0
 end
 
--- use item
-function UseItemFromInventory(player, name)
-    local item = GetItem(name)
+-- use object
+function UseObjectFromInventory(player, name)
+    local object = GetObject(name)
     local _inventory = GetPlayerPropertyValue(player, "_inventory")
     for k,v in pairs(_inventory) do
         if v['name'] == name then
-            EquipItem(player, name)
-            UseItem(player, name)
+            EquipObject(player, name)
+            PlayInteraction(player, name)
 
-            if item['usable']['max_use'] and v['used'] < item['usable']['max_use'] then
+            if object.max_use and v['used'] < object.max_use then
                 -- update inventory after use
                 Delay(2000, function()
                     _inventory[k]['used'] = v['used'] + 1
                     SetPlayerPropertyValue(player, "_inventory", _inventory)               
 
                     -- delete if all used up
-                    if (item['usable']['max_use'] - v['used'] == 0) then
+                    if (object.max_use - v['used'] == 0) then
                         print "all used up!"
-                        DeleteItemFromInventory(player, name)
+                        DeleteObjectFromInventory(player, name)
                     end
 
                     CallEvent("SyncInventory", player)
@@ -92,57 +92,57 @@ function UseItemFromInventory(player, name)
         end
     end
 end
-AddRemoteEvent("UseItemFromInventory", UseItemFromInventory)
-AddFunctionExport("UseItemFromInventory", UseItemFromInventory)
+AddRemoteEvent("UseObjectFromInventory", UseObjectFromInventory)
+AddFunctionExport("UseObjectFromInventory", UseObjectFromInventory)
 
 -- equip
-function EquipItemFromInventory(player, name)
-    EquipItem(player, name)
+function EquipObjectFromInventory(player, name)
+    EquipObject(player, name)
     CallEvent("SyncInventory", player)
 end
-AddRemoteEvent("EquipItemFromInventory", EquipItemFromInventory)
-AddFunctionExport("EquipItemFromInventory", EquipItemFromInventory)
+AddRemoteEvent("EquipObjectFromInventory", EquipObjectFromInventory)
+AddFunctionExport("EquipObjectFromInventory", EquipObjectFromInventory)
 
 -- unequip
-function UnequipItem(player, name)
-    UnequipItem(player, name)
+function UnequipObject(player, name)
+    UnequipObject(player, name)
     CallEvent("SyncInventory", player)
 end
-AddRemoteEvent("UnequipItem", UnequipItem)
-AddFunctionExport("UnequipItem", UnequipItem)
+AddRemoteEvent("UnequipObject", UnequipObject)
+AddFunctionExport("UnequipObject", UnequipObject)
 
 -- deletes from inventory and places on ground
-function DropItemFromInventory(player, name)
+function DropObjectFromInventory(player, name)
     SetPlayerAnimation(player, "CARRY_SETDOWN")
 
     Delay(1000, function()
-        DeleteItemFromInventory(player, name)
+        DeleteObjectFromInventory(player, name)
 
-        -- spawn item near player
-        CreateItemPickupNearPlayer(player, name)
+        -- spawn object near player
+        CreateObjectPickupNearPlayer(player, name)
     end)
 end
 
 -- deletes from inventory
-function DeleteItemFromInventory(player, name)
+function DeleteObjectFromInventory(player, name)
     _inventory = GetPlayerPropertyValue(player, "_inventory")
 
     for k,v in pairs(_inventory) do
         if v['name'] == name then
-            -- found item
+            -- found object
             _qty = v['quantity'] - 1
             if _qty > 0 then
                 -- decrease qty by 1
                 _inventory[k]['quantity'] = _qty
             else
-                -- remove item from inventory
+                -- remove object from inventory
                 _inventory[k] = nil
             end
             SetPlayerPropertyValue(player, "_inventory", _inventory)
 
-            -- unequip if dropping the last item
+            -- unequip if dropping the last object
             if _qty == 0 then
-                UnequipItem(player, name)
+                UnequipObject(player, name)
                 return
             end
 
@@ -151,8 +151,8 @@ function DeleteItemFromInventory(player, name)
         end
     end
 end
-AddRemoteEvent("DropItemFromInventory", DropItemFromInventory)
-AddFunctionExport("DropItemFromInventory", DropItemFromInventory)
+AddRemoteEvent("DropObjectFromInventory", DropObjectFromInventory)
+AddFunctionExport("DropObjectFromInventory", DropObjectFromInventory)
 
 -- get inventory data and send to client
 function SyncInventory(player)
@@ -160,14 +160,14 @@ function SyncInventory(player)
 
     _send = {}
     for k,v in pairs(_inventory) do
-        local item = GetItem(v['name'])           
+        local object = GetObject(v['name'])           
         table.insert(_send, {
             name = v['name'],
             quantity = v['quantity'],
-            modelid = item['modelid'],
-            usable = (item['usable'] ~= nil),
-            equipable = (item['equipable'] ~= nil),
-            isequipped = (GetEquippedItem(player, v['name']) ~= nil)
+            modelid = object.modelid,
+            usable = object.usable,
+            equipable = object.equipable,
+            isequipped = (GetEquippedObject(player, v['name']) ~= nil)
         })
     end
     print(dump(_send))

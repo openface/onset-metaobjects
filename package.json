@@ -8,8 +8,7 @@
         "json.lua",
         "server.lua",
         "inventory.lua",
-        "items.lua",
-        "item.lua",
+        "objects.lua",
         "util.lua"
     ],
     "files": [

@@ -1,23 +1,23 @@
-local ItemizeUI
+local ObjectizeUI
 
 AddEvent("OnPackageStart", function()
-    ItemizeUI = CreateWebUI(0.0, 0.0, 0.0, 0.0)
-    LoadWebFile(ItemizeUI, "http://asset/"..GetPackageName().."/ui/index.html")
-    SetWebAlignment(ItemizeUI, 0.0, 0.0)
-    SetWebAnchors(ItemizeUI, 0.0, 0.0, 1.0, 1.0)
-    SetWebVisibility(ItemizeUI, WEB_HIDDEN)
+    ObjectizeUI = CreateWebUI(0.0, 0.0, 0.0, 0.0)
+    LoadWebFile(ObjectizeUI, "http://asset/"..GetPackageName().."/ui/index.html")
+    SetWebAlignment(ObjectizeUI, 0.0, 0.0)
+    SetWebAnchors(ObjectizeUI, 0.0, 0.0, 1.0, 1.0)
+    SetWebVisibility(ObjectizeUI, WEB_HIDDEN)
 end)
 
 AddEvent("OnPackageStop", function()
-	DestroyWebUI(ItemizeUI)
+	DestroyWebUI(ObjectizeUI)
 end)
 
 AddRemoteEvent("ShowCharacterSelection", function()
-    ExecuteWebJS(ItemizeUI, "ShowCharacterSelect()")
+    ExecuteWebJS(ObjectizeUI, "ShowCharacterSelect()")
   	ShowMouseCursor(true)
 	SetIgnoreMoveInput(true);
 	SetInputMode(INPUT_GAMEANDUI)
-    SetWebVisibility(ItemizeUI, WEB_VISIBLE)
+    SetWebVisibility(ObjectizeUI, WEB_VISIBLE)
 end)
 
 AddEvent("OnKeyPress", function(key)
@@ -28,7 +28,7 @@ AddEvent("OnKeyPress", function(key)
 		ShowMouseCursor(true)
 		SetIgnoreMoveInput(true);
 		SetInputMode(INPUT_GAMEANDUI)
-		SetWebVisibility(ItemizeUI, WEB_VISIBLE)
+		SetWebVisibility(ObjectizeUI, WEB_VISIBLE)
 	end
 end)
 
@@ -38,30 +38,30 @@ AddEvent("OnKeyRelease", function(key)
 		ShowMouseCursor(false)
 		SetIgnoreMoveInput(false);
 		SetInputMode(INPUT_GAME)
-		SetWebVisibility(ItemizeUI, WEB_HIDDEN)
+		SetWebVisibility(ObjectizeUI, WEB_HIDDEN)
 	end
 end)
 
-AddRemoteEvent("PlayItemUseSound", function(sound, x, y, z)
+AddRemoteEvent("PlayObjectUseSound", function(sound, x, y, z)
     SetSoundVolume(CreateSound3D("sounds/"..sound, x, y, z, 1000), 1.0)
 end)
 
 AddRemoteEvent("SetInventory", function(data)
-	ExecuteWebJS(ItemizeUI, "SyncInventory('".. data .."')")
+	ExecuteWebJS(ObjectizeUI, "SyncInventory('".. data .."')")
 end)
 
-AddEvent("UseItem", function(name)
-	CallRemoteEvent("UseItemFromInventory", name)
+AddEvent("UseObject", function(name)
+	CallRemoteEvent("UseObjectFromInventory", name)
 end)
 
-AddEvent("EquipItem", function(name)
-	CallRemoteEvent("EquipItemFromInventory", name)
+AddEvent("EquipObject", function(name)
+	CallRemoteEvent("EquipObjectFromInventory", name)
 end)
 
-AddEvent("UnequipItem", function(name)
-	CallRemoteEvent("UnequipItem", name)
+AddEvent("UnequipObject", function(name)
+	CallRemoteEvent("UnequipObject", name)
 end)
 
-AddEvent("DropItem", function(name)
-	CallRemoteEvent("DropItemFromInventory", name)
+AddEvent("DropObject", function(name)
+	CallRemoteEvent("DropObjectFromInventory", name)
 end)
