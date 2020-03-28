@@ -33,21 +33,19 @@ function SyncInventory(data) {
         i = i + 1;
         let html = `<img src="http://game/objects/${item['modelid']}"></img>`;
         if (item['quantity'] > 1) {
-            html = html + `<span class="quantity">${item['quantity']}</span>`;
+            html += `<span class="quantity">${item['quantity']}</span>`;
         }
-        html = html + `<div class="options">`;
+        html += `<div class="options">`;
         if (item['usable']) {
-            html = html + `<a onClick="UseItem('${item['name']}')" href="#">Use</a>`;
+            html += `<a onClick="UseItem('${item['name']}')" href="#">Use</a>`;
         }
         if (item['equipable']) {
-            html = html + `<a onClick="EquipItem('${item['name']}')" href="#">Equip</a>`;
+            html += `<a onClick="EquipItem('${item['name']}')" href="#">Equip</a>`;
         }
         if (item['isequipped']) {
-            html = html + `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
+            html += `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
         }
-        html = html + `<a onClick="DropItem('${item['name']}')" href="#">Drop</a>
-            </div>
-        `;
+        html += `<a onClick="DropItem('${item['name']}')" href="#">Drop</a></div>`;
         $('#slot-'+i).html(html);
     });
 }
