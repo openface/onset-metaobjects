@@ -1,6 +1,6 @@
-BoxHead = {}
+Chainsaw = {}
 
-function BoxHead:new()
+function Chainsaw:new()
     self.__index = self
     return setmetatable({
         interaction = {
@@ -23,4 +23,4 @@ function BoxHead:new()
     }, self)
 end
 
-return BoxHead
+return Chainsaw
