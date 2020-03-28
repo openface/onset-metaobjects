@@ -38,12 +38,12 @@ function SyncInventory(data) {
         html = html + `<div class="options">`;
         if (item['usable']) {
             html = html + `<a onClick="UseItem('${item['name']}')" href="#">Use</a>`;
-        } else if (item['equipable']) {
-            if (item['isequipped']) {
-                html = html + `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
-            } else {
-                html = html + `<a onClick="EquipItem('${item['name']}')" href="#">Equip</a>`;
-            }
+        }
+        if (item['equipable']) {
+            html = html + `<a onClick="EquipItem('${item['name']}')" href="#">Equip</a>`;
+        }
+        if (item['isequipped']) {
+            html = html + `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
         }
         html = html + `<a onClick="DropItem('${item['name']}')" href="#">Drop</a>
             </div>

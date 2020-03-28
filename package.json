@@ -19,6 +19,7 @@
         "ui/style.css",
         "sounds/pickup.wav",
         "sounds/drink.wav",
-        "sounds/backpack.wav"
+        "sounds/backpack.wav",
+        "sounds/chainsaw.wav"
     ]
 }

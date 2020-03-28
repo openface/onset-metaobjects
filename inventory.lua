@@ -74,7 +74,7 @@ function UseItemFromInventory(player, name)
             EquipItem(player, name)
             UseItem(player, name)
 
-            if v['used'] < item['usable']['max_use'] then
+            if item['usable']['max_use'] and v['used'] < item['usable']['max_use'] then
                 -- update inventory after use
                 Delay(2000, function()
                     _inventory[k]['used'] = v['used'] + 1

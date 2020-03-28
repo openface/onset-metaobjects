@@ -3,7 +3,7 @@ local Items = {
         usable = {
             max_use = 3,
             sound = "drink.wav",
-            animation = "DRINKING"
+            animation = { name = "DRINKING" }
         },
         modelid = 662,
         max_carry = 2,
@@ -18,7 +18,7 @@ local Items = {
     ["vest"] = {
         equipable = {
             sound = "backpack.wav",
-            animation = "CHECK_EQUIPMENT"
+            animation = { name = "CHECK_EQUIPMENT" }
         },
         modelid = 843, 
         max_carry = 1,
@@ -37,7 +37,10 @@ local Items = {
         attachment = { x = 10, y = 2, z = 0, rx = 10, ry = 90, rz = -90, bone = "head" }
     },
     ["chainsaw"] = {
-        equipable = {},
+        usable = {
+            sound = "chainsaw.wav",
+            animation = { name = "FISHING", duration = 4000 }
+        },
         modelid = 1047,
         max_carry = 1,
         attachment = { x = -20, y = 5, z = 22, rx = 82, ry = 180, rz = 10, bone = "hand_r" }

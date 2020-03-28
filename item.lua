@@ -6,7 +6,7 @@ function UseItem(player, name)
     end
 
     if item['usable']['animation'] then
-        SetPlayerAnimation(player, item['usable']['animation'])
+        PlayAnimation(player, item['usable']['animation'])
     end
 
     if item['usable']['sound'] then
@@ -36,7 +36,7 @@ function EquipItem(player, name)
 
     if item['equipable'] then
         if item['equipable']['animation'] then
-            SetPlayerAnimation(player, item['equipable']['animation'])
+            PlayAnimation(player, item['equipable']['animation'])
         end
         if item['equipable']['sound'] then
             PlaySound(player, item['equipable']['sound'])
@@ -90,5 +90,24 @@ function GetEquippedItemNameFromBone(player, bone)
             return GetObjectPropertyValue(object, "_name")
         end
     end
-    
+end
+
+function PlaySound(player, sound)
+    local x,y,z = GetPlayerLocation(player)
+    for k,ply in pairs(GetAllPlayers()) do
+        local _x,_y,_z = GetPlayerLocation(ply)
+        if GetDistance3D(x, y, z, _x, _y, _z) <= 1000 then
+            CallRemoteEvent(ply, "PlayItemUseSound", sound, x, y, z)
+        end
+    end
+end
+
+function PlayAnimation(player, animation)
+    print(dump(animation))
+    SetPlayerAnimation(player, animation['name'])
+    if animation['duration'] then
+        Delay(animation['duration'], function()
+            SetPlayerAnimation(player, "STOP")
+        end)
+    end
 end
