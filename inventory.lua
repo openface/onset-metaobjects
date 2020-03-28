@@ -40,10 +40,12 @@ function AddItemToInventory(player, name)
             end
         end
     else
+        local item = GetItem(name)
         -- add new item
         table.insert(_inventory, {
             name = name,
             quantity = 1,
+            used = 0
         })
         SetPlayerPropertyValue(player, "_inventory", _inventory)
     end
@@ -65,9 +67,30 @@ end
 
 -- use item
 function UseItemFromInventory(player, name)
-    -- equip before use
-    UseItem(player, name)
-    CallEvent("SyncInventory", player)
+    local item = GetItem(name)
+    local _inventory = GetPlayerPropertyValue(player, "_inventory")
+    for k,v in pairs(_inventory) do
+        if v['name'] == name then
+            EquipItem(player, name)
+            UseItem(player, name)
+
+            if v['used'] < item['usable']['max_use'] then
+                -- update inventory after use
+                Delay(2000, function()
+                    _inventory[k]['used'] = v['used'] + 1
+                    SetPlayerPropertyValue(player, "_inventory", _inventory)               
+
+                    -- delete if all used up
+                    if (item['usable']['max_use'] - v['used'] == 0) then
+                        print "all used up!"
+                        DeleteItemFromInventory(player, name)
+                    end
+
+                    CallEvent("SyncInventory", player)
+                end)
+            end
+        end
+    end
 end
 AddRemoteEvent("UseItemFromInventory", UseItemFromInventory)
 AddFunctionExport("UseItemFromInventory", UseItemFromInventory)
@@ -88,10 +111,20 @@ end
 AddRemoteEvent("UnequipItem", UnequipItem)
 AddFunctionExport("UnequipItem", UnequipItem)
 
-
--- drop item
+-- deletes from inventory and places on ground
 function DropItemFromInventory(player, name)
-    print("dropping item "..name)
+    SetPlayerAnimation(player, "CARRY_SETDOWN")
+
+    Delay(1000, function()
+        DeleteItemFromInventory(player, name)
+
+        -- spawn item near player
+        CreateItemPickupNearPlayer(player, name)
+    end)
+end
+
+-- deletes from inventory
+function DeleteItemFromInventory(player, name)
     _inventory = GetPlayerPropertyValue(player, "_inventory")
 
     for k,v in pairs(_inventory) do
@@ -107,17 +140,11 @@ function DropItemFromInventory(player, name)
             end
             SetPlayerPropertyValue(player, "_inventory", _inventory)
 
-            SetPlayerAnimation(player, "CARRY_SETDOWN")
-
-            Delay(1000, function()
-                -- unequip if dropping the last item
-                if _qty == 0 then
-                    UnequipItem(player, name)
-                end
-
-                -- spawn item near player
-                CreateItemPickupNearPlayer(player, name)
-            end)
+            -- unequip if dropping the last item
+            if _qty == 0 then
+                UnequipItem(player, name)
+                return
+            end
 
             CallEvent("SyncInventory", player)
             break
@@ -138,10 +165,12 @@ function SyncInventory(player)
             name = v['name'],
             quantity = v['quantity'],
             modelid = item['modelid'],
-            type = item['type'],
+            usable = (item['usable'] ~= nil),
+            equipable = (item['equipable'] ~= nil),
             isequipped = (GetEquippedItem(player, v['name']) ~= nil)
         })
     end
+    print(dump(_send))
     CallRemoteEvent(player, "SetInventory", json_encode(_send))
 end
 AddEvent("SyncInventory", SyncInventory)

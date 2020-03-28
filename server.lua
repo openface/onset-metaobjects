@@ -1,15 +1,18 @@
+function CreateItemPickup(name, x, y, z)
+    local item = GetItem(name)
+    print("Creating item "..name.. " modelid "..item['modelid'])
+
+    local pickup = CreatePickup(item['modelid'], x, y, z)
+    SetPickupPropertyValue(pickup, '_name', name)
+    SetPickupPropertyValue(pickup, '_text', CreateText3D(name, 8, x, y, z+50, 0, 0, 0))
+end
+AddFunctionExport("CreateItemPickup", CreateItemPickup)
 
 -- creates a new item near given player
 function CreateItemPickupNearPlayer(player, name)
-    local item = GetItem(name)
-    print("Creating item "..name.. " modelid "..item.modelid)
-
     local x,y,z = GetPlayerLocation(player)
     local x,y = randomPointInCircle(x,y,100)
-
-    local pickup = CreatePickup(item['modelid'], x, y, z-75)
-    SetPickupPropertyValue(pickup, '_name', name)
-    SetPickupPropertyValue(pickup, '_text', CreateText3D(name, 8, x, y, z-25, 0, 0, 0))
+    CreateItemPickup(name, x, y, z-75)
 end
 AddFunctionExport("CreateItemPickupNearPlayer", CreateItemPickupNearPlayer)
 
@@ -20,7 +23,7 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)
     end
 
     local item = GetItem(name)
-    if GetInventoryCount(player, name) >= item['inventory_max'] then
+    if GetInventoryCount(player, name) >= item['max_carry'] then
         -- prevent pickup if it exceeds the max carry
         return
     end
@@ -53,4 +56,9 @@ end
 -- spawn item by player
 AddCommand("createitem", function(player, name)
     CreateItemPickupNearPlayer(player, name)
+end)
+
+AddCommand("animate", function(player, animation)
+    SetPlayerAnimation(player, "STOP")
+    SetPlayerAnimation(player, string.upper(animation))
 end)

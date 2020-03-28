@@ -34,8 +34,8 @@ html {
     border:1px solid rgba(0,0,0,0.4);
     height:75px;
     width:75px;
-    position: relative;
     display: inline-block;
+    position:relative;
 }
 
 .slot img {
@@ -69,11 +69,11 @@ html {
 
 .slot .options {
     display: none;
-    position:absolute;
+    position:relative;
     z-index: 1;
     background:rgba(0,0,0,0.8);
-    border:1px solid rgba(0,0,0,0.4);
-    padding:3px 0;
+    padding:0 1px;
+    top:-3px;
 }
 
 .slot .options a {

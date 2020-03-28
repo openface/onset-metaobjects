@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
     if (typeof indev !== 'undefined') {
-        SyncInventory('[{"item":{"max":2,"usable":true,"equipable":true,"modelid":1241},"name":"wine","quantity":1}]');
+        SyncInventory('[{"quantity":1,"isequipped":false,"type":"consumable","name":"beer","modelid":662}]');
     }
 });
 
@@ -36,9 +36,9 @@ function SyncInventory(data) {
             html = html + `<span class="quantity">${item['quantity']}</span>`;
         }
         html = html + `<div class="options">`;
-        if (item['type'] == 'consumable') {
+        if (item['usable']) {
             html = html + `<a onClick="UseItem('${item['name']}')" href="#">Use</a>`;
-        } else if (item['type'] == 'wearable') {
+        } else if (item['equipable']) {
             if (item['isequipped']) {
                 html = html + `<a onClick="UnequipItem('${item['name']}')" href="#">Unequip</a>`;
             } else {

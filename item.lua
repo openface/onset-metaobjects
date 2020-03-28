@@ -1,13 +1,21 @@
 
 function UseItem(player, name)
-    EquipItem(player, name)
-    SetPlayerAnimation(player, "DRINKING")
+    local item = GetItem(name)
+    if item['usable'] == nil then
+        return
+    end
 
-    PlaySound(player, "drink.wav")
+    if item['usable']['animation'] then
+        SetPlayerAnimation(player, item['usable']['animation'])
+    end
+
+    if item['usable']['sound'] then
+        PlaySound(player, item['usable']['sound'])
+    end
     
-    Delay(10000, function()
-        UnequipItem(player, name)
-    end)
+    --Delay(10000, function()
+    --    UnequipItem(player, name)
+    --end)
 end
 
 function EquipItem(player, name)
@@ -24,6 +32,15 @@ function EquipItem(player, name)
     if equipped_object ~= nil then
         print "unequipping equipped"
         UnequipItem(player, equipped_object)
+    end
+
+    if item['equipable'] then
+        if item['equipable']['animation'] then
+            SetPlayerAnimation(player, item['equipable']['animation'])
+        end
+        if item['equipable']['sound'] then
+            PlaySound(player, item['equipable']['sound'])
+        end
     end
 
     local x,y,z = GetPlayerLocation(player)
@@ -45,12 +62,14 @@ function EquipItem(player, name)
 end
 
 function UnequipItem(player, name)
+    print "unequipping"
     local object = GetEquippedItem(player, name)
     if object == nil then
         print "not equipped"
         return
     end
 
+    -- remove from equipped list
     local _equipped = GetPlayerPropertyValue(player, "_equipped")
     _equipped[name] = nil
     SetPlayerPropertyValue(player, "_equipped", _equipped)
