@@ -18,6 +18,7 @@
         "ui/style.css",
         "sounds/pickup.wav",
         "sounds/drink.wav",
+        "sounds/eat.wav",
         "sounds/backpack.wav",
         "sounds/chainsaw.wav"
     ]
