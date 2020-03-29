@@ -58,10 +58,10 @@ interaction = {
 
 Note: Not all animations require a duration.
 
-# TODO
+## TODO
 
-[ ] Auto-equip when picked up when configured
-[ ] Ensure max inventory slots are not exceeded when picking up objects
-[ ] Unequip any equipped weapon when equipping an object
-[ ] Add armor bonus to vest object
-[ ] Consider ExtendObject, similar to RegisterObject, but allows overrides
+- [ ] Auto-equip when picked up when configured
+- [ ] Ensure max inventory slots are not exceeded when picking up objects
+- [ ] Unequip any equipped weapon when equipping an object
+- [ ] Add armor bonus to vest object
+- [ ] Consider ExtendObject, similar to RegisterObject, but allows overrides
