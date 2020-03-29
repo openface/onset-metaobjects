@@ -43,7 +43,7 @@ AddEvent("OnKeyRelease", function(key)
 end)
 
 AddRemoteEvent("PlayObjectUseSound", function(sound, x, y, z)
-    SetSoundVolume(CreateSound3D("sounds/"..sound, x, y, z, 1000), 1.0)
+    SetSoundVolume(CreateSound3D(sound, x, y, z, 1000), 1.0)
 end)
 
 AddRemoteEvent("SetInventory", function(data)

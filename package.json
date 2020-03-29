@@ -6,10 +6,18 @@
     ],
     "server_scripts": [
         "json.lua",
-        "server.lua",
+        "pickups.lua",
         "inventory.lua",
         "objects.lua",
-        "util.lua"
+        "util.lua",
+        "objects/armyhat.lua",
+        "objects/banana.lua",
+        "objects/beer.lua",
+        "objects/boxhead.lua",
+        "objects/chainsaw.lua",
+        "objects/flashlight.lua",
+        "objects/headphones.lua",
+        "objects/vest.lua"
     ],
     "files": [
         "ui/index.html",

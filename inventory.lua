@@ -74,14 +74,14 @@ function UseObjectFromInventory(player, name)
             EquipObject(player, name)
             PlayInteraction(player, name)
 
-            if object.max_use and v['used'] < object.max_use then
+            if object['max_use'] and v['used'] < object['max_use'] then
                 -- update inventory after use
                 Delay(2000, function()
                     _inventory[k]['used'] = v['used'] + 1
                     SetPlayerPropertyValue(player, "_inventory", _inventory)               
 
                     -- delete if all used up
-                    if (object.max_use - v['used'] == 0) then
+                    if (object['max_use'] - v['used'] == 0) then
                         print "all used up!"
                         DeleteObjectFromInventory(player, name)
                     end
@@ -164,9 +164,9 @@ function SyncInventory(player)
         table.insert(_send, {
             name = v['name'],
             quantity = v['quantity'],
-            modelid = object.modelid,
-            usable = object.usable,
-            equipable = object.equipable,
+            modelid = object['modelid'],
+            usable = object['usable'],
+            equipable = object['equipable'],
             isequipped = (GetEquippedObject(player, v['name']) ~= nil)
         })
     end

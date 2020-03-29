@@ -2,10 +2,12 @@ Objects = {}
 
 -- object factory
 function GetObject(name)
-    if Objects[name] == nil then
-        Objects[name] = require('packages/'..GetPackageName()..'/objects/'..name):new()
-    end
     return Objects[name]
+end
+
+function RegisterObject(name, meta)
+    Objects[name] = meta
+    print("Registering object: "..name)
 end
 
 function EquipObject(player, name)
@@ -17,7 +19,7 @@ function EquipObject(player, name)
     end
 
     -- unequip whatever is in the player's bone
-    local equipped_object = GetEquippedObjectNameFromBone(player, object.attachment['bone'])
+    local equipped_object = GetEquippedObjectNameFromBone(player, object['attachment']['bone'])
     if equipped_object ~= nil then
         print "unequipping equipped"
         UnequipObject(player, equipped_object)
@@ -26,17 +28,17 @@ function EquipObject(player, name)
     PlayInteraction(player, name)
 
     local x,y,z = GetPlayerLocation(player)
-    local _object = CreateObject(object.modelid, x, y, z)
+    local _object = CreateObject(object['modelid'], x, y, z)
     SetObjectPropertyValue(_object, "_name", name)
-    SetObjectPropertyValue(_object, "_bone", object.attachment['bone'])
+    SetObjectPropertyValue(_object, "_bone", object['attachment']['bone'])
     SetObjectAttached(_object, ATTACH_PLAYER, player, 
-        object.attachment['x'],
-        object.attachment['y'],
-        object.attachment['z'],
-        object.attachment['rx'],
-        object.attachment['ry'],
-        object.attachment['rz'],
-        object.attachment['bone'])
+        object['attachment']['x'],
+        object['attachment']['y'],
+        object['attachment']['z'],
+        object['attachment']['rx'],
+        object['attachment']['ry'],
+        object['attachment']['rz'],
+        object['attachment']['bone'])
 
     local _equipped = GetPlayerPropertyValue(player, "_equipped")
     _equipped[name] = _object
@@ -76,19 +78,19 @@ end
 
 function PlayInteraction(player, name)
     local object = GetObject(name)
-    if not object.interaction then
+    if not object['interaction'] then
         return
     end
-    if object.interaction['animation'] then
-        SetPlayerAnimation(player, object.interaction['animation']['name'])
-        if object.interaction['animation']['duration'] then
-            Delay(object.interaction['animation']['duration'], function()
+    if object['interaction']['animation'] then
+        SetPlayerAnimation(player, object['interaction']['animation']['name'])
+        if object['interaction']['animation']['duration'] then
+            Delay(object['interaction']['animation']['duration'], function()
                 SetPlayerAnimation(player, "STOP")
             end)
         end
     end
-    if object.interaction['sound'] then
-        PlaySound(player, object.interaction['sound'])
+    if object['interaction']['sound'] then
+        PlaySound(player, object['interaction']['sound'])
     end
 end
 

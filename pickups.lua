@@ -1,8 +1,8 @@
 function CreateObjectPickup(name, x, y, z)
     local object = GetObject(name)
-    print("Creating object "..name.. " modelid "..object.modelid)
+    print("Creating object "..name.. " modelid "..object['modelid'])
 
-    local pickup = CreatePickup(object.modelid, x, y, z)
+    local pickup = CreatePickup(object['modelid'], x, y, z)
     SetPickupPropertyValue(pickup, '_name', name)
     SetPickupPropertyValue(pickup, '_text', CreateText3D(name, 8, x, y, z+50, 0, 0, 0))
 end
@@ -23,7 +23,7 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)
     end
 
     local object = GetObject(name)
-    if GetInventoryCount(player, name) >= object.max_carry then
+    if GetInventoryCount(player, name) >= object['max_carry'] then
         -- prevent pickup if it exceeds the max carry
         return
     end
