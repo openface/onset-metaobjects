@@ -9,6 +9,7 @@ function RegisterObject(name, meta)
     Objects[name] = meta
     print("Registering object: "..name)
 end
+AddFunctionExport("RegisterObject", RegisterObject)
 
 function EquipObject(player, name)
     local object = GetObject(name)
@@ -86,6 +87,10 @@ function PlayInteraction(player, name)
         if object['interaction']['animation']['duration'] then
             Delay(object['interaction']['animation']['duration'], function()
                 SetPlayerAnimation(player, "STOP")
+
+                if not object['equipable'] then
+                    UnequipObject(player, name)
+                end
             end)
         end
     end

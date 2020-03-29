@@ -17,7 +17,8 @@
         "objects/chainsaw.lua",
         "objects/flashlight.lua",
         "objects/headphones.lua",
-        "objects/vest.lua"
+        "objects/vest.lua",
+        "objects/mop.lua"
     ],
     "files": [
         "ui/index.html",

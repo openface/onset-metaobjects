@@ -34,7 +34,7 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)
     Delay(1000, function()
         -- remove pickup
         if GetPickupPropertyValue(pickup, '_claimedby') == player then
-            PlaySound(player, "pickup.wav")
+            PlaySound(player, "sounds/pickup.wav")
 
             AddObjectToInventory(player, name)
             DestroyText3D(GetPickupPropertyValue(pickup, '_text'))
