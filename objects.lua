@@ -87,10 +87,6 @@ function PlayInteraction(player, name)
         if object['interaction']['animation']['duration'] then
             Delay(object['interaction']['animation']['duration'], function()
                 SetPlayerAnimation(player, "STOP")
-
-                if not object['equipable'] then
-                    UnequipObject(player, name)
-                end
             end)
         end
     end
