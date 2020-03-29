@@ -23,7 +23,7 @@ ModelID to use in-game and in inventory.  See full list [here](https://dev.playo
 Max number of these player can carry at once.
 
 #### attachment (table)
-How to attach object to the player when equipped or used.  These parameters are identical to those in the [docs](https://dev.playonset.com/wiki/SetObjectAttached).
+How to attach object to the player when equipped or used.  These parameters are similar to those in [SetObjectAttached](https://dev.playonset.com/wiki/SetObjectAttached).
 
 ```
 attachment = { 
