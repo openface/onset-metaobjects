@@ -22,7 +22,7 @@
     ],
     "files": [
         "ui/index.html",
-        "ui/active_objects.js",
+        "ui/metaobjects.js",
         "ui/jquery.js",
         "ui/style.css",
         "sounds/pickup.wav",

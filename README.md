@@ -93,4 +93,3 @@ Note: Not all animations require a duration.
 - [ ] Unequip any equipped weapon when equipping an object
 - [ ] Add armor bonus to vest object
 - [ ] Consider ExtendObject, similar to RegisterObject, but allows overrides
-- [ ] Add use_label (eg. eat)

@@ -5,6 +5,7 @@ RegisterObject("banana", {
     },
     modelid = 1622,
     max_use = 3,
+    use_label = "Eat",
     max_carry = 2,
     attachment = { 
         x = -6, 

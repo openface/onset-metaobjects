@@ -64,6 +64,7 @@ function GetInventoryCount(player, name)
     end
     return 0
 end
+AddFunctionExport("GetInventoryCount", GetInventoryCount)
 
 -- use object
 function UseObjectFromInventory(player, name)
@@ -122,6 +123,8 @@ function DropObjectFromInventory(player, name)
         CreateObjectPickupNearPlayer(player, name)
     end)
 end
+AddRemoteEvent("DropObjectFromInventory", DropObjectFromInventory)
+AddFunctionExport("DropObjectFromInventory", DropObjectFromInventory)
 
 -- deletes from inventory
 function DeleteObjectFromInventory(player, name)
@@ -151,8 +154,7 @@ function DeleteObjectFromInventory(player, name)
         end
     end
 end
-AddRemoteEvent("DropObjectFromInventory", DropObjectFromInventory)
-AddFunctionExport("DropObjectFromInventory", DropObjectFromInventory)
+AddFunctionExport("DeleteObjectFromInventory", DeleteObjectFromInventory)
 
 -- get inventory data and send to client
 function SyncInventory(player)
@@ -167,6 +169,7 @@ function SyncInventory(player)
             modelid = object['modelid'],
             usable = object['usable'],
             equipable = object['equipable'],
+            use_label = object['use_label'],
             isequipped = (GetEquippedObject(player, v['name']) ~= nil)
         })
     end

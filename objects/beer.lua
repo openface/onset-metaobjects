@@ -5,6 +5,7 @@ RegisterObject("beer", {
     },
     modelid = 662,
     max_use = 3,
+    use_label = "Drink",
     max_carry = 2,
     attachment = { 
         x = -6, 
