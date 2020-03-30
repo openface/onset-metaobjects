@@ -46,37 +46,24 @@ MetaObjects.RegisterObject("mop", {
 
 ### Pickups API
 
-#### CreateObjectPickupNearPlayer(player, name)
-Spawn metaobject pickup near a player
+| Function / Args                              |                                       |
+|----------------------------------------------|---------------------------------------|
+| `CreateObjectPickupNearPlayer(player, name)` | Spawn metaobject pickup near a player |
+| `CreateObjectPickup(name, x, y, z)`          | Spawn metaobject at given location    |
 
-#### CreateObjectPickup(name, x, y, z)
-Spawn metaobject at given location
 
 ### Inventory API
 
-#### AddObjectToInventory(player, name)
-Add a metaobject to a player's inventory
-
-#### GetInventoryAvailableSlots(player)
-Get number of available inventory slots for a player
-
-#### GetInventoryCount(player, name)
-Get the count for a given objects in player's inventory
-
-#### UseObjectFromInventory(player, name)
-Player uses a given metaobject.
-
-#### EquipObjectFromInventory(player, name)
-Player equips a given metaobject.
-
-#### UnequipObject(player, name)
-Player unequips a given metaobject, if equipped.
-
-#### DropObjectFromInventory(player, name)
-Remove object from player inventory and place on ground.
-
-#### DeleteObjectFromInventory(player, name)
-Remove object from player inventory.
+| Function / Args                           |                                                          |
+|-------------------------------------------|----------------------------------------------------------|
+| `AddObjectToInventory(player, name)`      | Add a metaobject to a player's inventory                 |
+| `GetInventoryAvailableSlots(player)`      | Get number of available inventory slots for a player     |
+| `GetInventoryCount(player, name)`         | Get the count for a given objects in player's inventory  |
+| `UseObjectFromInventory(player, name)`    | Player uses a given metaobject.                          |
+| `EquipObjectFromInventory(player, name)`  | Player equips a given metaobject.                        |
+| `UnequipObject(player, name)`             | Player unequips a given metaobject, if equipped.         |
+| `DropObjectFromInventory(player, name)`   | Remove object from player inventory and place on ground. |
+| `DeleteObjectFromInventory(player, name)` | Remove object from player inventory and discard.         |
 
 ## MetaObject Configuration
 
