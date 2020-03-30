@@ -1,6 +1,4 @@
-# Onset MetaObjects - Inventory / rich objects system for Onset
-
-NOTE:  This is a work in progress, not yet ready for use.
+# MetaObjects - Inventory & rich object system for Onset
 
 ## Features
 
@@ -28,23 +26,59 @@ MetaObjects = ImportPackage("metaobjects")
 ## Exported API Functions
 
 Once this package is imported, you can use it's exported functions in your server-side scripts.
+MetaObjects are always referenced by their name.
 
-To add an object to a player's inventory:
-
-```
-MetaObjects.AddObjectToInventory(player, "beer")
-```
-
-To spawn an object pickup near a player:
+#### RegisterObject(name, meta)
+Register a new metaobject by name and configuration.
 
 ```
-MetaObjects.CreateObjectPickupNearPlayer(player, 'banana')
+MetaObjects.RegisterObject("mop", {
+    interaction = {
+        animation = { name = "WALLLEAN03" }
+    },
+    modelid = 1673,
+    max_carry = 1,
+    attachment = { x = 50, y = 40, z = -114, rx = 0, ry = -40, rz = -30, bone = "hand_r" },
+    usable = false,
+    equipable = true
+})
 ```
 
-TODO: document all exported functions
+### Pickups API
 
+#### CreateObjectPickupNearPlayer(player, name)
+Spawn metaobject pickup near a player
 
-## Configuration
+#### CreateObjectPickup(name, x, y, z)
+Spawn metaobject at given location
+
+### Inventory API
+
+#### AddObjectToInventory(player, name)
+Add a metaobject to a player's inventory
+
+#### GetInventoryAvailableSlots(player)
+Get number of available inventory slots for a player
+
+#### GetInventoryCount(player, name)
+Get the count for a given objects in player's inventory
+
+#### UseObjectFromInventory(player, name)
+Player uses a given metaobject.
+
+#### EquipObjectFromInventory(player, name)
+Player equips a given metaobject.
+
+#### UnequipObject(player, name)
+Player unequips a given metaobject, if equipped.
+
+#### DropObjectFromInventory(player, name)
+Remove object from player inventory and place on ground.
+
+#### DeleteObjectFromInventory(player, name)
+Remove object from player inventory.
+
+## MetaObject Configuration
 
 #### modelid (int)
 ModelID to use in-game and in inventory.  See full list [here](https://dev.playonset.com/wiki/Objects).
