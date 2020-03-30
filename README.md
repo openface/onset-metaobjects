@@ -1,11 +1,39 @@
-# ActionObjects - Inventory / rich objects system for Onset
+# Onset MetaObjects - Inventory / rich objects system for Onset
 
-TODO:  This is a work in progress.
+NOTE:  This is a work in progress, not yet ready for use.
 
+## How To Use
+
+The MetaObjects package is intended to work along with other packages.  To include it
+your server, add it to the packages section in your `server_config.json`.
+
+Instantiate from a server-side script:
+
+```
+MetaObjects = ImportPackage("metaobjects")
+```
+
+## Exported API Functions
+
+Once this package is imported, you can use it's exported functions in your server-side scripts.
+
+To add an object to a player's inventory:
+
+```
+MetaObjects.AddObjectToInventory(player, "beer")
+```
+
+To spawn an object pickup near a player:
+
+```
+MetaObjects.CreateObjectPickupNearPlayer(player, 'banana')
+```
+
+TODO: document all exported functions
 
 ## Features
 
-All ActiveObjects share these common functionalities:
+All MetaObjects share these common functionalities:
 
 - **Pickups** - Objects can be picked up and stored in player's inventory.
 - **Inventory** - Stores finite number of items.  Objects can be used, equipped, or dropped.
