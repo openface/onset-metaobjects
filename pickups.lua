@@ -23,8 +23,13 @@ AddEvent("OnPlayerPickupHit", function(player, pickup)
     end
 
     local object = GetObject(name)
+
+    -- if we already have the item, see if we can carry more
     if GetInventoryCount(player, name) >= object['max_carry'] then
         -- prevent pickup if it exceeds the max carry
+        return
+    elseif GetInventoryAvailableSlots(player) <= 0 then
+        -- no available slots for more objects
         return
     end
 

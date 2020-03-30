@@ -54,6 +54,15 @@ function AddObjectToInventory(player, name)
 end
 AddFunctionExport("AddObjectToInventory", AddObjectToInventory)
 
+function GetInventoryAvailableSlots(player)
+    local _inventory = GetPlayerPropertyValue(player, "_inventory")
+    local count = 0
+    for _ in pairs(_inventory) do count = count + 1 end
+    -- max slots is hardcoded at 6 (for now?)
+    return (6 - count)
+end
+AddFunctionExport("GetInventoryAvailableSlots", GetInventoryAvailableSlots)
+
 -- get carry count for given object
 function GetInventoryCount(player, name)
     local _inventory = GetPlayerPropertyValue(player, "_inventory")

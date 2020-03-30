@@ -2,12 +2,24 @@
 
 NOTE:  This is a work in progress, not yet ready for use.
 
+## Features
+
+All MetaObjects share these common functionalities:
+
+- **Pickups** - Objects can be picked up and stored in player's inventory.
+- **Inventory** - Stores finite number of items.  Objects can be used, equipped, or dropped.
+- **Equipable** - Objects can configurably be equipped/unequipped.
+- **Usable** - Objects can configurably be used/consumed a finite number of times.
+- **Extendable** - Object files can be extended using server-side events.
+
+Note: Hold the [I] key to bring up the inventory menu.
+
 ## How To Use
 
 The MetaObjects package is intended to work along with other packages.  To include it
-your server, add it to the packages section in your `server_config.json`.
+your server, add it to the packages section in the server configuration file.  (Eg. `server_config.json`)
 
-Instantiate from a server-side script:
+Import it from a server-side script:
 
 ```
 MetaObjects = ImportPackage("metaobjects")
@@ -30,16 +42,6 @@ MetaObjects.CreateObjectPickupNearPlayer(player, 'banana')
 ```
 
 TODO: document all exported functions
-
-## Features
-
-All MetaObjects share these common functionalities:
-
-- **Pickups** - Objects can be picked up and stored in player's inventory.
-- **Inventory** - Stores finite number of items.  Objects can be used, equipped, or dropped.
-- **Equipable** - Objects can configurably be equipped/unequipped.
-- **Usable** - Objects can configurably be used/consumed a finite number of times.
-- **Extendable** - Object files can be extended using server-side events.
 
 
 ## Configuration
@@ -84,12 +86,12 @@ interaction = {
 },
 ```
 
-Note: Not all animations require a duration.
+Note: Not all animations require a duration.  Animations are cancelled when the player
+unequips the object.
 
 ## TODO
 
 - [ ] Auto-equip when picked up when configured
-- [ ] Ensure max inventory slots are not exceeded when picking up objects
 - [ ] Unequip any equipped weapon when equipping an object
 - [ ] Add armor bonus to vest object
 - [ ] Consider ExtendObject, similar to RegisterObject, but allows overrides
