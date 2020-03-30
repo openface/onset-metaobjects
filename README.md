@@ -94,4 +94,3 @@ Note: Not all animations require a duration.
 - [ ] Add armor bonus to vest object
 - [ ] Consider ExtendObject, similar to RegisterObject, but allows overrides
 - [ ] Add use_label (eg. eat)
-- [ ] Fix the mop unequip

@@ -1,6 +1,6 @@
 RegisterObject("mop", {
     interaction = {
-        animation = { name = "WALLLEAN03", duration = 7000 }
+        animation = { name = "WALLLEAN03" }
     },
     modelid = 1673,
     max_carry = 1,
@@ -13,6 +13,6 @@ RegisterObject("mop", {
 		rz = -30, 
 		bone = "hand_r" 
 	},
-    usable = true,
-    equipable = false
+    usable = false,
+    equipable = true
 })

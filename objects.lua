@@ -54,6 +54,9 @@ function UnequipObject(player, name)
         return
     end
 
+    -- just in case the object requires an animation
+    SetPlayerAnimation(player, "STOP")
+
     -- remove from equipped list
     local _equipped = GetPlayerPropertyValue(player, "_equipped")
     _equipped[name] = nil
