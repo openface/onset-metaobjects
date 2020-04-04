@@ -12,7 +12,7 @@ All MetaObjects share these common functionalities:
 
 Note: Hold the [I] key to bring up the inventory menu.
 
-[![MetaObjects for Onset](https://i.gyazo.com/93aa1a9a150f981b07980000dfdd9447.gif)](https://i.gyazo.com/93aa1a9a150f981b07980000dfdd9447.gif)
+[![Image from Gyazo](https://i.gyazo.com/93aa1a9a150f981b07980000dfdd9447.gif)](https://gyazo.com/93aa1a9a150f981b07980000dfdd9447)
 
 ## How To Use
 
