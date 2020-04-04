@@ -12,6 +12,8 @@ All MetaObjects share these common functionalities:
 
 Note: Hold the [I] key to bring up the inventory menu.
 
+[![MetaObjects for Onset](https://i.gyazo.com/93aa1a9a150f981b07980000dfdd9447.gif)](https://i.gyazo.com/93aa1a9a150f981b07980000dfdd9447.gif)
+
 ## How To Use
 
 The MetaObjects package is intended to work along with other packages.  To include it
